@@ -1,234 +1,263 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <title>Kvíz: Stará Praha</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kvíz o Staré Praze</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f6f6f6;
-      max-width: 600px;
-      margin: 40px auto;
+      max-width: 800px;
+      margin: auto;
       padding: 20px;
-      border-radius: 10px;
-      background-color: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background-color: #f5f5f5;
     }
-
     h1 {
       text-align: center;
     }
-
-    .question {
-      font-size: 1.2em;
-      margin-bottom: 15px;
-    }
-
-    .options button {
+    label {
+      margin-bottom: 10px;
       display: block;
-      margin: 8px 0;
-      width: 100%;
-      padding: 10px;
-      font-size: 1em;
-      cursor: pointer;
-      border-radius: 5px;
+      font-size: 16px;
     }
-
-    .feedback {
-      font-weight: bold;
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
       margin-top: 10px;
     }
-
-    #nextBtn {
-      margin-top: 20px;
-      display: none;
-      padding: 10px 15px;
-      font-size: 1em;
-    }
-
-    .score {
-      font-size: 1.2em;
-      margin-top: 20px;
+    .question-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
-
-  <h1>Kvíz: Stará Praha</h1>
-  <div id="quiz-container">
-    <div class="question" id="question"></div>
-    <div class="options" id="options"></div>
-    <div class="feedback" id="feedback"></div>
-    <button id="nextBtn">➡️ Další otázka</button>
-    <div class="score" id="score"></div>
-  </div>
+  <h1>Kvíz o Staré Praze</h1>
+  <div id="quiz" class="question-box"></div>
 
   <script>
     const questions = [
-    {
-        "question": "Jaký je nejvyšší bod Prahy?",
-        "options": ["Teleček", "Petřín", "Vítkov"],
-        "answer": "Teleček"
-    },
-    {
-        "question": "Jaké je naopak nejníže položené místo v Praze?",
-        "options": ["Modřanská rokle", "Hladina Vltavy u Suchdola", "Drahanské údolí"],
-        "answer": "Hladina Vltavy u Suchdola"
-    },
-    {
-        "question": "Prahou protékají tři řeky. Vltava, Berounka a...",
-        "options": ["Rokytka", "Sázava", "Labe"],
-        "answer": "Rokytka"
-    },
-    {
-        "question": "Které pražské náměstí je rozlohou největší?",
-        "options": ["Václavské náměstí", "Karlovo náměstí", "Jiřího z Poděbrad"],
-        "answer": "Karlovo náměstí"
-    },
-    {
-        "question": "Jaké výročí oslavilo v roce 2024 pražské metro?",
-        "options": ["100 let", "60 let", "50 let"],
-        "answer": "50 let"
-    },
-    {
-        "question": "Která stanice metra je nejhlubší?",
-        "options": ["Náměstí Míru", "Flora", "Kobylisy"],
-        "answer": "Náměstí Míru"
-    },
-    {
-        "question": "Jaká z fungujících kaváren je nejstarší?",
-        "options": ["Arco", "Louvre", "Slavia"],
-        "answer": "Slavia"
-    },
-    {
-        "question": "Ve kterém roce byl postaven Karlův most?",
-        "options": ["1212", "1357", "1421"],
-        "answer": "1357"
-    },
-    {
-        "question": "Která stavba je nejvyšší v Praze?",
-        "options": ["City tower", "Žižkovský vysílač", "Petřínská rozhledna"],
-        "answer": "Žižkovský vysílač"
-    },
-    {
-        "question": "Jaký je pohon orloje?",
-        "options": ["Stále mechanický", "Moderní, pomocí elektřiny", "Moderní, pomocí elektřiny částečně získané ze solárních článků"],
-        "answer": "Stále mechanický"
-    },
-    {
-        "question": "Na kterém břehu Vltavy se nachází Pražský hrad?",
-        "options": ["Na levém", "Na pravém"],
-        "answer": "Na levém"
-    },
-    {
-        "question": "Kde je podle legendy uložený pražský Golem?",
-        "options": ["Na půdě pražské synagogy", "V místě židovského hřbitova", "V nepřístupných prostorách Pražského hradu"],
-        "answer": "Na půdě pražské synagogy"
-    },
-    {
-        "question": "Nejdelší pražská ulice je ulice Strakonická. Kolik měří?",
-        "options": ["Necelých 8 km", "Necelých 12 km", "Necelých 16 km"],
-        "answer": "Necelých 16 km"
-    },
-    {
-        "question": "Nejstarší pražská hospoda a pivnice U Fleků byla založena roku...",
-        "options": ["1399", "1499", "1599"],
-        "answer": "1499"
-    },
-    {
-        "question": "Který z pražských fotbalových klubů je nejstarší?",
-        "options": ["Sparta", "Bohemians", "Slavia"],
-        "answer": "Slavia"
-    },
-    {
-        "question": "Kdo je podle legendy autorem výroku o městu velikém a zároveň bájným zakladatelem Prahy?",
-        "options": ["sv. Václav", "kněžna Libuše", "praotec Čech"],
-        "answer": "kněžna Libuše"
-    },
-    {
-        "question": "Jak se jmenuje nejstarší plzeňská hospoda v Praze?",
-        "options": ["U pinkasů", "Malostranská Beseda", "U Zlatého tygra"],
-        "answer": "U pinkasů"
-    },
-    {
-        "question": "Znáte druhý název Tančícího domu?",
-        "options": ["Ginger a Fred", "Danny a Sandy", "Baby a Johnny"],
-        "answer": "Ginger a Fred"
-    },
-    {
-        "question": "Jak vysoká je socha Jana Žižky na Vítkově?",
-        "options": ["9 metrů", "12 metrů", "15 metrů"],
-        "answer": "9 metrů"
-    },
-    {
-        "question": "Jak se dříve nazývalo Staroměstské náměstí?",
-        "options": ["Koňský trh", "Dobytčí trh", "Velký rynek"],
-        "answer": "Velký rynek"
-    },
-    {
-        "question": "Co se podle pověsti stane, když se dotknete pravé tváře náhrobku Tycha Brahe?",
-        "options": ["Do roka oslepnete", "Budete mít urologický problém", "Přestanou vás bolet zuby"],
-        "answer": "Přestanou vás bolet zuby"
-    },
-    {
-        "question": "Která z následujících osobností není pohřbena na Vyšehradském hřbitově?",
-        "options": ["Vlasta Burian", "Jan Werich", "Jaroslav Marvan"],
-        "answer": "Jan Werich"
-    }
-];
+      {
+        question: "Jaký je nejvyšší bod Prahy?",
+        options: ["Teleček", "Petřín", "Vítkov"],
+        answer: "Teleček"
+      },
+      {
+        question: "Jaké je naopak nejníže položené místo v Praze?",
+        options: ["Modřanská rokle", "Hladina Vltavy u Suchdola", "Drahanské údolí"],
+        answer: "Hladina Vltavy u Suchdola"
+      },
+      {
+        question: "Prahou protékají tři řeky. Vltava, Berounka a...",
+        options: ["Rokytka", "Sázava", "Labe"],
+        answer: "Rokytka"
+      },
+      {
+        question: "Které pražské náměstí je rozlohou největší?",
+        options: ["Václavské náměstí", "Karlovo náměstí", "Jiřího z Poděbrad"],
+        answer: "Karlovo náměstí"
+      },
+      {
+        question: "Jaké výročí oslavilo v roce 2024 pražské metro?",
+        options: ["100 let", "60 let", "50 let"],
+        answer: "50 let"
+      },
+      {
+        question: "Která stanice metra je nejhlubší?",
+        options: ["Náměstí Míru", "Flora", "Kobylisy"],
+        answer: "Náměstí Míru"
+      },
+      {
+        question: "Jaká z fungujících kaváren je nejstarší?",
+        options: ["Arco", "Louvre", "Slavia"],
+        answer: "Slavia"
+      },
+      {
+        question: "Ve kterém roce byl postaven Karlův most?",
+        options: ["1212", "1357", "1421"],
+        answer: "1357"
+      },
+      {
+        question: "Která stavba je nejvyšší v Praze?",
+        options: ["City tower", "Žižkovský vysílač", "Petřínská rozhledna"],
+        answer: "Žižkovský vysílač"
+      },
+      {
+        question: "Jaký je pohon orloje?",
+        options: ["Stále mechanický", "Moderní, pomocí elektřiny", "Moderní, pomocí elektřiny částečně získané ze solárních článků"],
+        answer: "Stále mechanický"
+      },
+      {
+        question: "Na kterém břehu Vltavy se nachází Pražský hrad?",
+        options: ["Na levém", "Na pravém"],
+        answer: "Na levém"
+      },
+      {
+        question: "Kde je podle legendy uložený pražský Golem?",
+        options: ["Na půdě pražské synagogy", "V místě židovského hřbitova", "V nepřístupných prostorách Pražského hradu"],
+        answer: "Na půdě pražské synagogy"
+      },
+      {
+        question: "Nejdelší pražská ulice je ulice Strakonická. Kolik měří?",
+        options: ["Necelých 8 km", "Necelých 12 km", "Necelých 16 km"],
+        answer: "Necelých 16 km"
+      },
+      {
+        question: "Nejstarší pražská hospoda a pivnice U Fleků byla založena roku...",
+        options: ["1399", "1499", "1599"],
+        answer: "1499"
+      },
+      {
+        question: "Který z pražských fotbalových klubů je nejstarší?",
+        options: ["Sparta", "Bohemians", "Slavia"],
+        answer: "Slavia"
+      },
+      {
+        question: "Kdo je podle legendy autorem výroku: 'Vidím město veliké, jehož sláva hvězd se dotýká.'?",
+        options: ["sv. Václav", "kněžna Libuše", "praotec Čech"],
+        answer: "kněžna Libuše"
+      },
+      {
+        question: "Jak se jmenuje nejstarší plzeňská hospoda v Praze?",
+        options: ["U pinkasů", "Malostranská Beseda", "U Zlatého tygra"],
+        answer: "U pinkasů"
+      },
+      {
+        question: "Druhý název Tančícího domu?",
+        options: ["Ginger a Fred", "Danny a Sandy", "Baby a Johnny"],
+        answer: "Ginger a Fred"
+      },
+      {
+        question: "Jak vysoká je socha Jana Žižky na Vítkově?",
+        options: ["9 metrů", "12 metrů", "15 metrů"],
+        answer: "9 metrů"
+      },
+      {
+        question: "Jak se dříve nazývalo Staroměstské náměstí?",
+        options: ["Koňský trh", "Dobytčí trh", "Velký rynek"],
+        answer: "Velký rynek"
+      },
+      {
+        question: "Dotkneš-li se pravé tváře Tycho Braheho na jeho náhrobku v Týnském chrámu, tak...",
+        options: ["do roka oslepneš", "budeš mít urologický problém", "přestanou tě bolet zuby"],
+        answer: "přestanou tě bolet zuby"
+      },
+      {
+        question: "Kdo z nich není pohřben na Vyšehradě?",
+        options: ["Vlasta Burian", "Jan Werich", "Jaroslav Marvan"],
+        answer: "Jan Werich"
+      }
+    ];
 
-    let current = 0;
-    let score = 0;
+    let currentIndex = 0;
+    let answers = new Array(questions.length).fill(null);
 
-    const questionEl = document.getElementById("question");
-    const optionsEl = document.getElementById("options");
-    const feedbackEl = document.getElementById("feedback");
-    const nextBtn = document.getElementById("nextBtn");
-    const scoreEl = document.getElementById("score");
+    function renderQuestion(index) {
+      const container = document.getElementById('quiz');
+      container.innerHTML = '';
 
-    function showQuestion() {
-      const q = questions[current];
+      const q = questions[index];
+
+      const heading = document.createElement('h2');
+      heading.textContent = `Otázka ${index + 1} z ${questions.length}`;
+      container.appendChild(heading);
+
+      const questionEl = document.createElement('p');
       questionEl.textContent = q.question;
-      optionsEl.innerHTML = "";
-      feedbackEl.textContent = "";
-      nextBtn.style.display = "none";
+      container.appendChild(questionEl);
 
+      const form = document.createElement('form');
       q.options.forEach(option => {
-        const btn = document.createElement("button");
-        btn.textContent = option;
-        btn.onclick = () => checkAnswer(option, q.answer);
-        optionsEl.appendChild(btn);
+        const label = document.createElement('label');
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'answer';
+        radio.value = option;
+        if (answers[index] === option) {
+          radio.checked = true;
+        }
+        radio.onchange = () => {
+          answers[index] = option;
+        };
+        label.appendChild(radio);
+        label.append(` ${option}`);
+        form.appendChild(label);
       });
-    }
+      container.appendChild(form);
 
-    function checkAnswer(selected, correct) {
-      const buttons = optionsEl.querySelectorAll("button");
-      buttons.forEach(btn => btn.disabled = true);
+      const nav = document.createElement('div');
+      nav.style.marginTop = '20px';
 
-      if (selected === correct) {
-        feedbackEl.textContent = "✅ Správně!";
-        score++;
-      } else {
-        feedbackEl.textContent = `❌ Špatně! Správná odpověď byla: ${correct}`;
+      if (index > 0) {
+        const backBtn = document.createElement('button');
+        backBtn.textContent = 'Zpět';
+        backBtn.onclick = (e) => {
+          e.preventDefault();
+          renderQuestion(index - 1);
+        };
+        nav.appendChild(backBtn);
       }
 
-      nextBtn.style.display = "inline-block";
+      if (index < questions.length - 1) {
+        const nextBtn = document.createElement('button');
+        nextBtn.textContent = 'Další';
+        nextBtn.style.marginLeft = '10px';
+        nextBtn.disabled = answers[index] === null;
+        nextBtn.onclick = (e) => {
+          e.preventDefault();
+          renderQuestion(index + 1);
+        };
+        form.onchange = () => {
+          nextBtn.disabled = answers[index] === null;
+        };
+        nav.appendChild(nextBtn);
+      } else {
+        const finishBtn = document.createElement('button');
+        finishBtn.textContent = 'Vyhodnotit';
+        finishBtn.style.marginLeft = '10px';
+        finishBtn.disabled = answers[index] === null;
+        finishBtn.onclick = (e) => {
+          e.preventDefault();
+          showResults();
+        };
+        form.onchange = () => {
+          finishBtn.disabled = answers[index] === null;
+        };
+        nav.appendChild(finishBtn);
+      }
+
+      container.appendChild(nav);
     }
 
-    nextBtn.onclick = () => {
-      current++;
-      if (current < questions.length) {
-        showQuestion();
-      } else {
-        questionEl.textContent = "🎉 Kvíz dokončen!";
-        optionsEl.innerHTML = "";
-        feedbackEl.textContent = "";
-        nextBtn.style.display = "none";
-        scoreEl.textContent = `Tvoje skóre: ${score} z ${questions.length}`;
-      }
-    };
+    function showResults() {
+      const container = document.getElementById('quiz');
+      container.innerHTML = '<h2>Výsledky</h2>';
 
-    showQuestion();
+      let correct = 0;
+      questions.forEach((q, i) => {
+        const isCorrect = answers[i] === q.answer;
+        if (isCorrect) correct++;
+
+        const qDiv = document.createElement('div');
+        qDiv.innerHTML = `
+          <p><strong>Otázka ${i + 1}:</strong> ${q.question}</p>
+          <p style="color:${isCorrect ? 'green' : 'red'}">
+            Tvoje odpověď: ${answers[i] || '(žádná)'} ${isCorrect ? '✓' : '✗'}
+          </p>
+          <p>Správná odpověď: ${q.answer}</p>
+          <hr>
+        `;
+        container.appendChild(qDiv);
+      });
+
+      const summary = document.createElement('h3');
+      summary.textContent = `Získal(a) jsi ${correct} z ${questions.length} bodů.`;
+      container.prepend(summary);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => renderQuestion(currentIndex));
   </script>
 </body>
 </html>
