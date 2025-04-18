@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Kvíz: Stará Praha</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f6f6;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+    }
+
+    .options button {
+      display: block;
+      margin: 8px 0;
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    #nextBtn {
+      margin-top: 20px;
+      display: none;
+      padding: 10px 15px;
+      font-size: 1em;
+    }
+
+    .score {
+      font-size: 1.2em;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Kvíz: Stará Praha</h1>
+  <div id="quiz-container">
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <button id="nextBtn">➡️ Další otázka</button>
+    <div class="score" id="score"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Jak se jmenovala hlavní tržnice Staré Prahy?",
+        options: ["Havelský trh", "Karlův trh", "Václavský trh"],
+        answer: "Havelský trh"
+      },
+      {
+        question: "Který most byl v Praze postaven ve 14. století?",
+        options: ["Karlův most", "Most Legií", "Mánesův most"],
+        answer: "Karlův most"
+      },
+      {
+        question: "Jaký je původní název Staroměstského náměstí?",
+        options: ["Rynk", "Forum", "Piazza"],
+        answer: "Rynk"
+      },
+      {
+        question: "Který orloj je umístěn na Staroměstské radnici?",
+        options: ["Astronomický orloj", "Sluneční hodiny", "Vodní hodiny"],
+        answer: "Astronomický orloj"
+      },
+      {
+        question: "Jak se jmenuje slavná gotická věž u Karlova mostu na straně Starého Města?",
+        options: ["Staroměstská mostecká věž", "Prašná brána", "Malostranská věž"],
+        answer: "Staroměstská mostecká věž"
+      },
+      {
+        question: "Co bylo symbolem Starého Města pražského?",
+        options: ["Zlatý lev", "Stříbrný klíč", "Stříbrná ruka"],
+        answer: "Stříbrná ruka"
+      },
+      {
+        question: "Který panovník založil Nové Město pražské?",
+        options: ["Karel IV.", "Václav IV.", "Přemysl Otakar II."],
+        answer: "Karel IV."
+      },
+      {
+        question: "Jaký chrám dominuje Staroměstskému náměstí?",
+        options: ["Chrám Matky Boží před Týnem", "Katedrála sv. Víta", "Bazilika sv. Jiří"],
+        answer: "Chrám Matky Boží před Týnem"
+      },
+      {
+        question: "Jak se jmenuje slavná ulice spojující Pražský hrad se Starým Městem?",
+        options: ["Královská cesta", "Zlatá ulička", "Celetná ulice"],
+        answer: "Královská cesta"
+      },
+      {
+        question: "Co se stalo na Staroměstském náměstí roku 1621?",
+        options: ["Poprava českých pánů", "Založení univerzity", "Korunovace Rudolfa II."],
+        answer: "Poprava českých pánů"
+      },
+      {
+        question: "Kde sídlila stará pražská židovská obec?",
+        options: ["Josefov", "Vinohrady", "Smíchov"],
+        answer: "Josefov"
+      },
+      {
+        question: "Jak se jmenuje nejstarší synagoga v Evropě, která stojí v Praze?",
+        options: ["Staronová synagoga", "Španělská synagoga", "Maiselova synagoga"],
+        answer: "Staronová synagoga"
+      },
+      {
+        question: "Který kostel je známý svou šikmou věží na Starém Městě?",
+        options: ["Kostel sv. Jiljí", "Kostel sv. Martina ve zdi", "Kostel sv. Jakuba"],
+        answer: "Kostel sv. Martina ve zdi"
+      },
+      {
+        question: "Jaký slavný alchymista působil v Praze za Rudolfa II.?",
+        options: ["Edward Kelley", "Isaac Newton", "Paracelsus"],
+        answer: "Edward Kelley"
+      },
+      {
+        question: "Který slavný český král má sochu na Karlově mostě?",
+        options: ["Sv. Václav", "Sv. Ludmila", "Sv. Jan Nepomucký"],
+        answer: "Sv. Jan Nepomucký"
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const feedbackEl = document.getElementById("feedback");
+    const nextBtn = document.getElementById("nextBtn");
+    const scoreEl = document.getElementById("score");
+
+    function showQuestion() {
+      const q = questions[current];
+      questionEl.textContent = q.question;
+      optionsEl.innerHTML = "";
+      feedbackEl.textContent = "";
+      nextBtn.style.display = "none";
+
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.onclick = () => checkAnswer(option, q.answer);
+        optionsEl.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selected, correct) {
+      const buttons = optionsEl.querySelectorAll("button");
+      buttons.forEach(btn => btn.disabled = true);
+
+      if (selected === correct) {
+        feedbackEl.textContent = "✅ Správně!";
+        score++;
+      } else {
+        feedbackEl.textContent = `❌ Špatně! Správná odpověď byla: ${correct}`;
+      }
+
+      nextBtn.style.display = "inline-block";
+    }
+
+    nextBtn.onclick = () => {
+      current++;
+      if (current < questions.length) {
+        showQuestion();
+      } else {
+        questionEl.textContent = "🎉 Kvíz dokončen!";
+        optionsEl.innerHTML = "";
+        feedbackEl.textContent = "";
+        nextBtn.style.display = "none";
+        scoreEl.textContent = `Tvoje skóre: ${score} z ${questions.length}`;
+      }
+    };
+
+    showQuestion();
+  </script>
+</body>
+</html>
