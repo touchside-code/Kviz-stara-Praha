@@ -65,82 +65,117 @@
 
   <script>
     const questions = [
-      {
-        question: "Jak se jmenovala hlavní tržnice Staré Prahy?",
-        options: ["Havelský trh", "Karlův trh", "Václavský trh"],
-        answer: "Havelský trh"
-      },
-      {
-        question: "Který most byl v Praze postaven ve 14. století?",
-        options: ["Karlův most", "Most Legií", "Mánesův most"],
-        answer: "Karlův most"
-      },
-      {
-        question: "Jaký je původní název Staroměstského náměstí?",
-        options: ["Rynk", "Forum", "Piazza"],
-        answer: "Rynk"
-      },
-      {
-        question: "Který orloj je umístěn na Staroměstské radnici?",
-        options: ["Astronomický orloj", "Sluneční hodiny", "Vodní hodiny"],
-        answer: "Astronomický orloj"
-      },
-      {
-        question: "Jak se jmenuje slavná gotická věž u Karlova mostu na straně Starého Města?",
-        options: ["Staroměstská mostecká věž", "Prašná brána", "Malostranská věž"],
-        answer: "Staroměstská mostecká věž"
-      },
-      {
-        question: "Co bylo symbolem Starého Města pražského?",
-        options: ["Zlatý lev", "Stříbrný klíč", "Stříbrná ruka"],
-        answer: "Stříbrná ruka"
-      },
-      {
-        question: "Který panovník založil Nové Město pražské?",
-        options: ["Karel IV.", "Václav IV.", "Přemysl Otakar II."],
-        answer: "Karel IV."
-      },
-      {
-        question: "Jaký chrám dominuje Staroměstskému náměstí?",
-        options: ["Chrám Matky Boží před Týnem", "Katedrála sv. Víta", "Bazilika sv. Jiří"],
-        answer: "Chrám Matky Boží před Týnem"
-      },
-      {
-        question: "Jak se jmenuje slavná ulice spojující Pražský hrad se Starým Městem?",
-        options: ["Královská cesta", "Zlatá ulička", "Celetná ulice"],
-        answer: "Královská cesta"
-      },
-      {
-        question: "Co se stalo na Staroměstském náměstí roku 1621?",
-        options: ["Poprava českých pánů", "Založení univerzity", "Korunovace Rudolfa II."],
-        answer: "Poprava českých pánů"
-      },
-      {
-        question: "Kde sídlila stará pražská židovská obec?",
-        options: ["Josefov", "Vinohrady", "Smíchov"],
-        answer: "Josefov"
-      },
-      {
-        question: "Jak se jmenuje nejstarší synagoga v Evropě, která stojí v Praze?",
-        options: ["Staronová synagoga", "Španělská synagoga", "Maiselova synagoga"],
-        answer: "Staronová synagoga"
-      },
-      {
-        question: "Který kostel je známý svou šikmou věží na Starém Městě?",
-        options: ["Kostel sv. Jiljí", "Kostel sv. Martina ve zdi", "Kostel sv. Jakuba"],
-        answer: "Kostel sv. Martina ve zdi"
-      },
-      {
-        question: "Jaký slavný alchymista působil v Praze za Rudolfa II.?",
-        options: ["Edward Kelley", "Isaac Newton", "Paracelsus"],
-        answer: "Edward Kelley"
-      },
-      {
-        question: "Který slavný český král má sochu na Karlově mostě?",
-        options: ["Sv. Václav", "Sv. Ludmila", "Sv. Jan Nepomucký"],
-        answer: "Sv. Jan Nepomucký"
-      }
-    ];
+    {
+        "question": "Jaký je nejvyšší bod Prahy?",
+        "options": ["Teleček", "Petřín", "Vítkov"],
+        "answer": "Teleček"
+    },
+    {
+        "question": "Jaké je naopak nejníže položené místo v Praze?",
+        "options": ["Modřanská rokle", "Hladina Vltavy u Suchdola", "Drahanské údolí"],
+        "answer": "Hladina Vltavy u Suchdola"
+    },
+    {
+        "question": "Prahou protékají tři řeky. Vltava, Berounka a...",
+        "options": ["Rokytka", "Sázava", "Labe"],
+        "answer": "Rokytka"
+    },
+    {
+        "question": "Které pražské náměstí je rozlohou největší?",
+        "options": ["Václavské náměstí", "Karlovo náměstí", "Jiřího z Poděbrad"],
+        "answer": "Karlovo náměstí"
+    },
+    {
+        "question": "Jaké výročí oslavilo v roce 2024 pražské metro?",
+        "options": ["100 let", "60 let", "50 let"],
+        "answer": "50 let"
+    },
+    {
+        "question": "Která stanice metra je nejhlubší?",
+        "options": ["Náměstí Míru", "Flora", "Kobylisy"],
+        "answer": "Náměstí Míru"
+    },
+    {
+        "question": "Jaká z fungujících kaváren je nejstarší?",
+        "options": ["Arco", "Louvre", "Slavia"],
+        "answer": "Slavia"
+    },
+    {
+        "question": "Ve kterém roce byl postaven Karlův most?",
+        "options": ["1212", "1357", "1421"],
+        "answer": "1357"
+    },
+    {
+        "question": "Která stavba je nejvyšší v Praze?",
+        "options": ["City tower", "Žižkovský vysílač", "Petřínská rozhledna"],
+        "answer": "Žižkovský vysílač"
+    },
+    {
+        "question": "Jaký je pohon orloje?",
+        "options": ["Stále mechanický", "Moderní, pomocí elektřiny", "Moderní, pomocí elektřiny částečně získané ze solárních článků"],
+        "answer": "Stále mechanický"
+    },
+    {
+        "question": "Na kterém břehu Vltavy se nachází Pražský hrad?",
+        "options": ["Na levém", "Na pravém"],
+        "answer": "Na levém"
+    },
+    {
+        "question": "Kde je podle legendy uložený pražský Golem?",
+        "options": ["Na půdě pražské synagogy", "V místě židovského hřbitova", "V nepřístupných prostorách Pražského hradu"],
+        "answer": "Na půdě pražské synagogy"
+    },
+    {
+        "question": "Nejdelší pražská ulice je ulice Strakonická. Kolik měří?",
+        "options": ["Necelých 8 km", "Necelých 12 km", "Necelých 16 km"],
+        "answer": "Necelých 16 km"
+    },
+    {
+        "question": "Nejstarší pražská hospoda a pivnice U Fleků byla založena roku...",
+        "options": ["1399", "1499", "1599"],
+        "answer": "1499"
+    },
+    {
+        "question": "Který z pražských fotbalových klubů je nejstarší?",
+        "options": ["Sparta", "Bohemians", "Slavia"],
+        "answer": "Slavia"
+    },
+    {
+        "question": "Kdo je podle legendy autorem výroku o městu velikém a zároveň bájným zakladatelem Prahy?",
+        "options": ["sv. Václav", "kněžna Libuše", "praotec Čech"],
+        "answer": "kněžna Libuše"
+    },
+    {
+        "question": "Jak se jmenuje nejstarší plzeňská hospoda v Praze?",
+        "options": ["U pinkasů", "Malostranská Beseda", "U Zlatého tygra"],
+        "answer": "U pinkasů"
+    },
+    {
+        "question": "Znáte druhý název Tančícího domu?",
+        "options": ["Ginger a Fred", "Danny a Sandy", "Baby a Johnny"],
+        "answer": "Ginger a Fred"
+    },
+    {
+        "question": "Jak vysoká je socha Jana Žižky na Vítkově?",
+        "options": ["9 metrů", "12 metrů", "15 metrů"],
+        "answer": "9 metrů"
+    },
+    {
+        "question": "Jak se dříve nazývalo Staroměstské náměstí?",
+        "options": ["Koňský trh", "Dobytčí trh", "Velký rynek"],
+        "answer": "Velký rynek"
+    },
+    {
+        "question": "Co se podle pověsti stane, když se dotknete pravé tváře náhrobku Tycha Brahe?",
+        "options": ["Do roka oslepnete", "Budete mít urologický problém", "Přestanou vás bolet zuby"],
+        "answer": "Přestanou vás bolet zuby"
+    },
+    {
+        "question": "Která z následujících osobností není pohřbena na Vyšehradském hřbitově?",
+        "options": ["Vlasta Burian", "Jan Werich", "Jaroslav Marvan"],
+        "answer": "Jan Werich"
+    }
+];
 
     let current = 0;
     let score = 0;
